@@ -7,34 +7,35 @@ fluidPage(
            selectInput("gene_SYMBOL", "Select one of gene SYMBOL:",
                        genesTable$gene_SYMBOL),
            #----------------------------------------------------------------
+		   hr(), #画一条线
            #设置时间选项，多选
            checkboxGroupInput("gdays", "Please choose days(timepoint):",
-                              c("3 days" = "day3",
-                                "5 days" = "day5",
-                                "8 days" = "day8"),
+                              c("day3" = "day3",
+                                "day5" = "day5",
+                                "day8" = "day8"),
                               selected = "day3"),
-           strong("If you choose one timepoint, whether you ask relationships only at one timepoint and not exist at other timepoints."),
-           checkboxInput("gunique", "unique", FALSE),
+           #strong("If you choose one timepoint, whether you ask relationships only at one timepoint and not exist at other timepoints."),
+           #checkboxInput("gunique", "unique", FALSE),
            #--------------------------------------------------------------------------
            hr(), #画一条线
            #设置关系中day3weight的选择
-           checkboxInput("gday3Weight"," Weight in 3 days ?", FALSE),
+           checkboxInput("gday3Weight"," Weight in at day3 ?", FALSE),
            #day3weight滑动条
-           sliderInput("gday3WeightNumber", "Number of WGCNA weight in 3 days:",
+           sliderInput("gday3WeightNumber", "Number of WGCNA weight at day3:",
                        min = 0, max = 0.5, value = 0),
            
            hr(), #画一条线
            #设置关系中day5weight的选择
-           checkboxInput("gday5Weight"," Weight in 5 days ?", FALSE),
+           checkboxInput("gday5Weight"," Weight in day5 ?", FALSE),
            #day5weight滑动条
-           sliderInput("gday5WeightNumber", "Number of WGCNA weight in 5 days:",
+           sliderInput("gday5WeightNumber", "Number of WGCNA weight at day5:",
                        min = 0, max = 0.6, value = 0),
            
            hr(), #画一条线
            #设置关系中day8weight的选择
            checkboxInput("gday8Weight"," Weight in 8 days ?", FALSE),
            #day8weight滑动条
-           sliderInput("gday8WeightNumber", "Number of WGCNA weight in 8 days:",
+           sliderInput("gday8WeightNumber", "Number of WGCNA weight at day8:",
                        min = 0, max = 0.55, value = 0),
          ),
          #=====================================================================

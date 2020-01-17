@@ -1,7 +1,7 @@
 
 
 source("before_Run_Shiny.R")
-
+source("genes_relationships_in_pathway_UI.R") 
 
 
 
@@ -9,7 +9,7 @@ source("before_Run_Shiny.R")
 ui <- 
   navbarPage(title = "Time-Course DB Query",
              tabPanel("Genes Relationships in Pathway",
-                      source("genes_relationships_in_pathway_UI.R")
+                      genes_relationships_in_pathway_UI
                       ), #
              tabPanel("Genes Neighborhoods Relationships",
                       source("GenesNeighborhoodsUI.R")
@@ -35,7 +35,7 @@ server = function(input, output){
   #连接neo4j
   #===========================================
   library(neo4r)
-  con <- neo4j_api$new(url = "http://localhost:7474",user = "neo4j", password = "xiaowei")
+  con <- neo4j_api$new(url = "http://10.168.119.229:7474",user = "neo4j", password = "xiaowei")
   
   ####################################################################################################
   #获取选择pathwayID、weight、timepoint之后，基因之间的关系的数据
@@ -51,39 +51,61 @@ server = function(input, output){
     #===========================================
     days = input$days #通过选择后来获取days参数
     #这里是根据days来设置时间筛选条件
-    if (length(days) == 0){
+    # if (length(days) == 0){
+      # dayOption = " "
+      # pdayOption = " "}
+    
+    # if (length(days) ==1){
+      # if (days == "day3"){
+        # if (input$unique){
+          # dayOption = " and r2.relationship =~ '100' "
+        # }else{
+          # dayOption = " and r2.relationship =~ '1..' "}
+      # }
+      
+      # if (days == "day5"){
+        # if (input$unique){
+          # dayOption = " and r2.relationship =~ '010' "
+        # }else{
+          # dayOption = " and r2.relationship =~ '.1.' "}
+      # }
+      
+      # if (days == "day8"){
+        # if (input$unique){
+          # dayOption = " and r2.relationship =~ '001' "
+        # }else{
+          # dayOption = " and r2.relationship =~ '..1' "}
+      # }
+    # }
+    # if (length(days) == 2){
+      # if ("day3" %in% days & "day5" %in% days){
+        # dayOption = " and r2.relationship =~ '11.' "}
+      # if ("day5" %in% days & "day8" %in% days){
+        # dayOption = " and r2.relationship =~ '.11' "}
+      # if ("day3" %in% days & "day8" %in% days){
+        # dayOption = " and r2.relationship =~ '1.1' "}
+    # }
+    # if (length(days) == 3){
+      # if ("day3" %in% days & "day5" %in% days & "day8" %in% days){
+        # dayOption = " and r2.relationship =~ '111' "}
+    # }
+	
+	if (length(days) == 0){
       dayOption = " "
       pdayOption = " "}
     
     if (length(days) ==1){
-      if (days == "day3"){
-        if (input$unique){
-          dayOption = " and r2.relationship =~ '100' "
-        }else{
-          dayOption = " and r2.relationship =~ '1..' "}
-      }
-      
-      if (days == "day5"){
-        if (input$unique){
-          dayOption = " and r2.relationship =~ '010' "
-        }else{
-          dayOption = " and r2.relationship =~ '.1.' "}
-      }
-      
-      if (days == "day8"){
-        if (input$unique){
-          dayOption = " and r2.relationship =~ '001' "
-        }else{
-          dayOption = " and r2.relationship =~ '..1' "}
-      }
+      if (days == "day3"){dayOption = " and r2.relationship =~ '100' "}
+      if (days == "day5"){dayOption = " and r2.relationship =~ '010' "}
+      if (days == "day8"){dayOption = " and r2.relationship =~ '001' "}
     }
     if (length(days) == 2){
       if ("day3" %in% days & "day5" %in% days){
-        dayOption = " and r2.relationship =~ '11.' "}
+        dayOption = " and r2.relationship =~ '110' "}
       if ("day5" %in% days & "day8" %in% days){
-        dayOption = " and r2.relationship =~ '.11' "}
+        dayOption = " and r2.relationship =~ '011' "}
       if ("day3" %in% days & "day8" %in% days){
-        dayOption = " and r2.relationship =~ '1.1' "}
+        dayOption = " and r2.relationship =~ '101' "}
     }
     if (length(days) == 3){
       if ("day3" %in% days & "day5" %in% days & "day8" %in% days){
@@ -399,7 +421,7 @@ server = function(input, output){
   #连接neo4j
   #===========================================
   library(neo4r)
-  con <- neo4j_api$new(url = "http://localhost:7474",user = "neo4j", password = "xiaowei")
+  con <- neo4j_api$new(url = "http://10.168.119.229:7474",user = "neo4j", password = "xiaowei")
   
   ####################################################################################################
   #基因neighbor之间的关系的数据
@@ -416,38 +438,59 @@ server = function(input, output){
     #===========================================
     days = input$gdays #通过选择后来获取gdays参数
     #这里是根据days来设置时间筛选条件
-    if (length(days) == 0){
+    # if (length(days) == 0){
+      # dayOption = " "}
+    
+    # if (length(days) ==1){
+      # if (days == "day3"){
+        # if (input$gunique){
+          # dayOption = " and r.relationship =~ '100' "
+        # }else{
+          # dayOption = " and r.relationship =~ '1..' "}
+      # }
+      
+      # if (days == "day5"){
+        # if (input$gunique){
+          # dayOption = " and r.relationship =~ '010' "
+        # }else{
+          # dayOption = " and r.relationship =~ '.1.' "}
+      # }
+      
+      # if (days == "day8"){
+        # if (input$gunique){
+          # dayOption = " and r.relationship =~ '001' "
+        # }else{
+          # dayOption = " and r.relationship =~ '..1' "}
+      # }
+    # }
+    # if (length(days) == 2){
+      # if ("day3" %in% days & "day5" %in% days){
+        # dayOption = " and r.relationship =~ '11.' "}
+      # if ("day5" %in% days & "day8" %in% days){
+        # dayOption = " and r.relationship =~ '.11' "}
+      # if ("day3" %in% days & "day8" %in% days){
+        # dayOption = " and r.relationship =~ '1.1' "}
+    # }
+    # if (length(days) == 3){
+      # if ("day3" %in% days & "day5" %in% days & "day8" %in% days){
+        # dayOption = " and r.relationship =~ '111' "}
+    # }
+	
+	    if (length(days) == 0){
       dayOption = " "}
     
     if (length(days) ==1){
-      if (days == "day3"){
-        if (input$gunique){
-          dayOption = " and r.relationship =~ '100' "
-        }else{
-          dayOption = " and r.relationship =~ '1..' "}
-      }
-      
-      if (days == "day5"){
-        if (input$gunique){
-          dayOption = " and r.relationship =~ '010' "
-        }else{
-          dayOption = " and r.relationship =~ '.1.' "}
-      }
-      
-      if (days == "day8"){
-        if (input$gunique){
-          dayOption = " and r.relationship =~ '001' "
-        }else{
-          dayOption = " and r.relationship =~ '..1' "}
-      }
+      if (days == "day3"){dayOption = " and r.relationship =~ '100' "}
+      if (days == "day5"){dayOption = " and r.relationship =~ '010' "}
+      if (days == "day8"){dayOption = " and r.relationship =~ '001' "}
     }
     if (length(days) == 2){
       if ("day3" %in% days & "day5" %in% days){
-        dayOption = " and r.relationship =~ '11.' "}
+        dayOption = " and r.relationship =~ '110' "}
       if ("day5" %in% days & "day8" %in% days){
-        dayOption = " and r.relationship =~ '.11' "}
+        dayOption = " and r.relationship =~ '011' "}
       if ("day3" %in% days & "day8" %in% days){
-        dayOption = " and r.relationship =~ '1.1' "}
+        dayOption = " and r.relationship =~ '101' "}
     }
     if (length(days) == 3){
       if ("day3" %in% days & "day5" %in% days & "day8" %in% days){
@@ -511,7 +554,7 @@ server = function(input, output){
   ####################################################################################################
   gene_pathway_relationship <- reactive({
     library(RNeo4j)
-    graph = startGraph("http://localhost:7474/db/data/", username="neo4j", password="xiaowei")
+    graph = startGraph("http://10.168.119.229:7474/db/data/", username="neo4j", password="xiaowei")
     query = paste0("
             match p = (A:node{name:'",input$gene_SYMBOL,"' })-[r]-(pathway:pathway)
             return pathway.Description AS pathway_description, pathway.ID AS pathway_ID
