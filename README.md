@@ -10,7 +10,7 @@ During this shiny, you can select one pathway to see genes relationships via WGC
 directely run the codes if you are in our lab:
 ```
 library(shiny)
-runGitHub("xiaowei3223/neo4j_time_course_shiny")
+runGitHub("xiaowei3223/time_courseDB_v3_shiny")
 ```
 ## condition 2
 If you are not in our lab, you need:   
@@ -23,7 +23,7 @@ my codes at connected neo4j.
 Run this codes:
 ```
 library(shiny)
-runGitHub("xiaowei3223/neo4j_time_course_shiny")
+runGitHub("xiaowei3223/time_courseDB_v3_shiny")
 ```
 
 # This shiny interface shows like as following:
