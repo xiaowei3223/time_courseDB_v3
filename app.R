@@ -150,8 +150,8 @@ server = function(input, output){
     #为relationship设置一个weight列
     #=====================================================================
     relationships$weight <- paste0("day3Weight: ",relationships$day3Weight,
-                                   "day5Weight: ",relationships$day5Weight,
-                                   "day8Weight: ",relationships$day8Weight)
+                                   "; day5Weight: ",relationships$day5Weight,
+                                   "; day8Weight: ",relationships$day8Weight)
     #=====================================================================
     #给边增加颜色
     #=====================================================================
@@ -494,8 +494,8 @@ server = function(input, output){
     #为relationship设置一个weight列
     #=====================================================================
     relationships$weight <- paste0("day3Weight: ",relationships$day3Weight,
-                                   "day5Weight: ",relationships$day5Weight,
-                                   "day8Weight: ",relationships$day8Weight)
+                                   "; day5Weight: ",relationships$day5Weight,
+                                   "; day8Weight: ",relationships$day8Weight)
     #=====================================================================
     #给边增加颜色
     #=====================================================================
