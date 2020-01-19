@@ -7,15 +7,31 @@
 #根据pathwayID进行选择
 selcet_pathway_ID <- selectInput("pathway_ID", "Please select one of pathway ID:",
                                  pathwayTable$pathway_ID)
+#设置时间选项，多选
+select_time_point <-checkboxGroupInput("days", "Please choose days(timepoint):",
+                     c("day3" = "day3",
+                       "day5" = "day5",
+                       "day8" = "day8"))
 
+#关系是否只存在某一个时间点
+select_unique_word <- strong("If you choose one timepoint, whether you ask relationships only at one timepoint and not exist at other timepoints.")
+select_unique <- checkboxInput("unique", "unique", FALSE)
+
+
+#设置关系中day3weight的选择
+select_day3Weight_orNot <- checkboxInput("day3Weight"," Weight at day3 ?", FALSE)
 #day3weight滑动条
 select_day3Weight <- sliderInput("day3WeightNumber", "Number of WGCNA weight at day3:",
             min = 0, max = 0.5, value = 0)
 
+#设置关系中day5weight的选择
+select_day5Weight_orNot <- checkboxInput("day5Weight"," Weight at day5 ?", FALSE)
 #day5weight滑动条
 select_day5Weight <- sliderInput("day5WeightNumber", "Number of WGCNA weight at day5:",
             min = 0, max = 0.6, value = 0)
 
+#设置关系中day8weight的选择
+select_day8Weight_orNot <- checkboxInput("day8Weight"," Weight at day8 ?", FALSE)
 #day8weight滑动条
 select_day8Weight <- sliderInput("day8WeightNumber", "Number of WGCNA weight at day8:",
             min = 0, max = 0.55, value = 0)
@@ -85,28 +101,20 @@ genes_relationships_in_pathway_UI  <- fluidPage(
   column(12,
          sidebarPanel(
            selcet_pathway_ID, #根据pathwayID进行选择 #选择pathway
-		       hr(), #画一条线
-		       strong("Please choose days(timepoint):"),
-		       checkboxInput("day3_TP", "day3", FALSE),
-		       checkboxInput("day5_TP", "day5", FALSE),
-		       checkboxInput("day8_TP", "day8", FALSE),
-		       
-		       conditionalPanel(
-		         condition = "input.day3_TP",
-		         hr(), #画一条线
-		         select_day3Weight#day3weight滑动条
-		         ),
-		       conditionalPanel(
-		         condition = "input.day5_TP",
-		         hr(), #画一条线
-		         select_day5Weight,#day5weight滑动条
-		         ),
-           conditionalPanel(
-             condition = "input.day8_TP",
-             hr(), #画一条线
-             select_day8Weight#day8weight滑动条
-             )
-		       ),
+		   hr(), #画一条线
+           select_time_point, #设置时间选项，多选
+           #select_unique_word, #文字：关系是否只存在某一个时间点
+           #select_unique, #关系是否只存在某一个时间点
+           hr(), #画一条线
+           select_day3Weight_orNot, #设置关系中day3weight的选择
+           select_day3Weight,#day3weight滑动条
+           hr(), #画一条线
+           select_day5Weight_orNot,#设置关系中day5weight的选择
+           select_day5Weight,#day5weight滑动条
+           hr(), #画一条线
+           select_day8Weight_orNot,#设置关系中day8weight的选择
+           select_day8Weight#day8weight滑动条
+           ),
          #===================================================================
          mainPanel(
            genes_relationship_in_pathway_graph_name,#显示选择的通路名称
@@ -130,7 +138,7 @@ genes_relationships_in_pathway_UI  <- fluidPage(
                                        select_community_in_igraph,#选择一种聚类分区的方法
                                       ),
                                 hr(), #画一条线
-                                column(12, genes_relationship_in_pathway_igraph_plot)#输出igraph图画
+                                genes_relationship_in_pathway_igraph_plot#输出igraph图画
                                 )
                        )
            )

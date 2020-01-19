@@ -49,30 +49,86 @@ server = function(input, output){
     #===========================================
     #根据时间点设置参数选择
     #===========================================
-    if(input$day3_TP){day3_TP_str = '1'}else{day3_TP_str = '0'}
-    if(input$day5_TP){day5_TP_str = '1'}else{day5_TP_str = '0'}
-    if(input$day8_TP){day8_TP_str = '1'}else{day8_TP_str = '0'}
-    day358_TP_str <- paste0(day3_TP_str,day5_TP_str,day8_TP_str) 
-    if (day358_TP_str == '000'){day358_TP_str = " '...' "} else{day358_TP_str = paste0(" '", day358_TP_str, "' ")}
-    dayOption = paste0(" and r2.relationship =~ ", day358_TP_str)
+    days = input$days #通过选择后来获取days参数
+    #这里是根据days来设置时间筛选条件
+    # if (length(days) == 0){
+      # dayOption = " "
+      # pdayOption = " "}
+    
+    # if (length(days) ==1){
+      # if (days == "day3"){
+        # if (input$unique){
+          # dayOption = " and r2.relationship =~ '100' "
+        # }else{
+          # dayOption = " and r2.relationship =~ '1..' "}
+      # }
+      
+      # if (days == "day5"){
+        # if (input$unique){
+          # dayOption = " and r2.relationship =~ '010' "
+        # }else{
+          # dayOption = " and r2.relationship =~ '.1.' "}
+      # }
+      
+      # if (days == "day8"){
+        # if (input$unique){
+          # dayOption = " and r2.relationship =~ '001' "
+        # }else{
+          # dayOption = " and r2.relationship =~ '..1' "}
+      # }
+    # }
+    # if (length(days) == 2){
+      # if ("day3" %in% days & "day5" %in% days){
+        # dayOption = " and r2.relationship =~ '11.' "}
+      # if ("day5" %in% days & "day8" %in% days){
+        # dayOption = " and r2.relationship =~ '.11' "}
+      # if ("day3" %in% days & "day8" %in% days){
+        # dayOption = " and r2.relationship =~ '1.1' "}
+    # }
+    # if (length(days) == 3){
+      # if ("day3" %in% days & "day5" %in% days & "day8" %in% days){
+        # dayOption = " and r2.relationship =~ '111' "}
+    # }
+	
+	if (length(days) == 0){
+      dayOption = " "
+      pdayOption = " "}
+    
+    if (length(days) ==1){
+      if (days == "day3"){dayOption = " and r2.relationship =~ '100' "}
+      if (days == "day5"){dayOption = " and r2.relationship =~ '010' "}
+      if (days == "day8"){dayOption = " and r2.relationship =~ '001' "}
+    }
+    if (length(days) == 2){
+      if ("day3" %in% days & "day5" %in% days){
+        dayOption = " and r2.relationship =~ '110' "}
+      if ("day5" %in% days & "day8" %in% days){
+        dayOption = " and r2.relationship =~ '011' "}
+      if ("day3" %in% days & "day8" %in% days){
+        dayOption = " and r2.relationship =~ '101' "}
+    }
+    if (length(days) == 3){
+      if ("day3" %in% days & "day5" %in% days & "day8" %in% days){
+        dayOption = " and r2.relationship =~ '111' "}
+    }
     
     #===========================================
     #设置weight选择功能
     #===========================================
     #-----设置day3weight选择功能----------------------------------
-    if (input$day3_TP){
+    if (input$day3Weight){
       day3WeightNumber = input$day3WeightNumber
       day3WeightOption <- paste0(" and r2.day3Weight >=", day3WeightNumber)} 
     else{day3WeightOption <- " "}
     
     #-----设置day3weight选择功能----------------------------------
-    if (input$day5_TP){
+    if (input$day5Weight){
       day5WeightNumber = input$day5WeightNumber
       day5WeightOption <- paste0(" and r2.day5Weight >=", day5WeightNumber)} 
     else{day5WeightOption <- " "}
     
     #-----设置day3weight选择功能----------------------------------
-    if (input$day8_TP){
+    if (input$day8Weight){
       day8WeightNumber = input$day8WeightNumber
       day8WeightOption <- paste0(" and r2.day8Weight >=", day8WeightNumber)} 
     else{day8WeightOption <- " "}
@@ -380,30 +436,83 @@ server = function(input, output){
     #===========================================
     #根据时间点设置参数选择
     #===========================================
-    if(input$gday3_TP){day3_TP_str = '1'}else{day3_TP_str = '0'}
-    if(input$gday5_TP){day5_TP_str = '1'}else{day5_TP_str = '0'}
-    if(input$gday8_TP){day8_TP_str = '1'}else{day8_TP_str = '0'}
-    day358_TP_str <- paste0(day3_TP_str,day5_TP_str,day8_TP_str) 
-    if (day358_TP_str == '000'){day358_TP_str = " '...' "} else{day358_TP_str = paste0(" '", day358_TP_str, "' ")}
-    dayOption = paste0(" and r.relationship =~ ", day358_TP_str)
+    days = input$gdays #通过选择后来获取gdays参数
+    #这里是根据days来设置时间筛选条件
+    # if (length(days) == 0){
+      # dayOption = " "}
     
+    # if (length(days) ==1){
+      # if (days == "day3"){
+        # if (input$gunique){
+          # dayOption = " and r.relationship =~ '100' "
+        # }else{
+          # dayOption = " and r.relationship =~ '1..' "}
+      # }
+      
+      # if (days == "day5"){
+        # if (input$gunique){
+          # dayOption = " and r.relationship =~ '010' "
+        # }else{
+          # dayOption = " and r.relationship =~ '.1.' "}
+      # }
+      
+      # if (days == "day8"){
+        # if (input$gunique){
+          # dayOption = " and r.relationship =~ '001' "
+        # }else{
+          # dayOption = " and r.relationship =~ '..1' "}
+      # }
+    # }
+    # if (length(days) == 2){
+      # if ("day3" %in% days & "day5" %in% days){
+        # dayOption = " and r.relationship =~ '11.' "}
+      # if ("day5" %in% days & "day8" %in% days){
+        # dayOption = " and r.relationship =~ '.11' "}
+      # if ("day3" %in% days & "day8" %in% days){
+        # dayOption = " and r.relationship =~ '1.1' "}
+    # }
+    # if (length(days) == 3){
+      # if ("day3" %in% days & "day5" %in% days & "day8" %in% days){
+        # dayOption = " and r.relationship =~ '111' "}
+    # }
+	
+	    if (length(days) == 0){
+      dayOption = " "}
+    
+    if (length(days) ==1){
+      if (days == "day3"){dayOption = " and r.relationship =~ '100' "}
+      if (days == "day5"){dayOption = " and r.relationship =~ '010' "}
+      if (days == "day8"){dayOption = " and r.relationship =~ '001' "}
+    }
+    if (length(days) == 2){
+      if ("day3" %in% days & "day5" %in% days){
+        dayOption = " and r.relationship =~ '110' "}
+      if ("day5" %in% days & "day8" %in% days){
+        dayOption = " and r.relationship =~ '011' "}
+      if ("day3" %in% days & "day8" %in% days){
+        dayOption = " and r.relationship =~ '101' "}
+    }
+    if (length(days) == 3){
+      if ("day3" %in% days & "day5" %in% days & "day8" %in% days){
+        dayOption = " and r.relationship =~ '111' "}
+    }
     #===========================================
     #设置weight选择功能
     #===========================================
     #-----设置day3weight选择功能----------------------------------
-    if (input$gday3_TP){
+    if (input$gday3Weight){
       day3WeightNumber = input$gday3WeightNumber
       day3WeightOption <- paste0(" and r.day3Weight >=", day3WeightNumber)} 
     else{day3WeightOption <- " "}
     
-    #-----设置day5weight选择功能----------------------------------
-    if (input$gday5_TP){
+    #-----设置day3weight选择功能----------------------------------
+    if (input$gday5Weight){
       day5WeightNumber = input$gday5WeightNumber
       day5WeightOption <- paste0(" and r.day5Weight >=", day5WeightNumber)} 
     else{day5WeightOption <- " "}
     
-    #-----设置day8weight选择功能----------------------------------
-    if (input$gday8_TP){
+    #-----设置day3weight选择功能----------------------------------
+    if (input$gday8Weight){
       day8WeightNumber = input$gday8WeightNumber
       day8WeightOption <- paste0(" and r.day8Weight >=", day8WeightNumber)} 
     else{day8WeightOption <- " "}
